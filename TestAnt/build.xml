@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Hello World Project GP" default="readf">
+                <target name="run"   depends="compile"  >
+                                <java  classname="com.ant.test.Demo">
+                                                <classpath path="staging" />
+                                </java>
+                </target>
+                <target name="compile"  >
+                                <echo> compiling.... </echo>
+                                <javac includeantruntime="false" srcdir="src"   destdir="staging">
+                                <classpath>
+        <pathelement path="lib/ant.jar"/>
+    </classpath>
+                                </javac>
+                </target>
+                <target name="use" description="Use the Task" depends="run">
+                                <taskdef name="helloworld" classname="com.ant.test.HelloWorld" classpath="build/AntWithJava.jar"/>
+                                <helloworld/>
+                </target>
+                <target name="useclass" description="Use the Task" depends="use">
+                                <taskdef name="helloworld2" classname="com.ant.test.HelloWorld" classpath="staging"/>
+                                <helloworld2/>
+                </target>
+               
+                <target name="attrclass" description="Use the Task" depends="useclass">
+                                <taskdef name="helloworld3" classname="com.ant.test.AttrHelloWorld" classpath="staging"/>
+                                <helloworld3/>
+                </target>
+ 
+ 
+                <target name="taskclass" description="Use the Task" depends="attrclass">
+                                <taskdef name="helloworld4" classname="com.ant.test.TaskHelloWorld" classpath="staging"/>
+                                <helloworld4/>
+                </target>           
+               
+               
+                <target name="ctaskclass" description="Use the Task" depends="taskclass">
+                                <taskdef name="helloworld5" classname="com.ant.test.CTaskHelloWorld" classpath="staging"/>
+                                <helloworld5   message="If you smell...the rock...is cooking"/>
+                </target>
+                
+                
+                <target name="readf" description="Use the Task" depends="ctaskclass">
+                                <taskdef name="readfile" classname="com.ant.test.ReadFile" classpath="staging"/>
+                                <readfile  message="/Users/gauravpalav/software/ant/apache-ant-1.9.7/patch.xml" />
+                </target>
+               
+</project>  
+ 
+
+
+
